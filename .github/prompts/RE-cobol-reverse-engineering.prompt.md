@@ -205,11 +205,38 @@ Use a **layered approach** for complex COBOL jobs with lengthy programs, stored 
 
 ### L1: Job Overview (ALWAYS Required)
 
-Create `job-overview.puml` showing:
+Create `job-overview.puml` showing the **complete call chain**:
+
+**Job Level:**
 - All JCL steps in execution order
-- Programs called by each step
-- Input/output files and DB2 tables
 - Dependencies between steps
+
+**Program Level (for each step):**
+- Main program called by step
+- Subprograms (CALL statements)
+- Stored procedures called
+- Nested calls (stored proc → stored proc)
+
+**Data Level:**
+- Input/output files per program
+- DB2 tables accessed
+
+**Example Structure:**
+```
+JOB: CUSTJOB
+├── STEP010: CUSTEXTR
+│   ├── CALLS: DATEUTIL (subprogram)
+│   └── CALLS: LOGTRACE (subprogram)
+├── STEP020: CUSTLOAD
+│   ├── CALLS: VALIDATE (subprogram)
+│   ├── CALLS: SP_CUST_MERGE (stored proc)
+│   │   └── CALLS: SP_AUDIT_LOG (nested)
+│   └── CALLS: ERRHANDL (subprogram)
+└── STEP030: CUSTRPT
+    └── CALLS: RPTUTIL (subprogram)
+```
+
+This diagram is the **single source of truth** for the entire job's call hierarchy.
 
 ### L2: Program Diagrams (Conditional)
 
