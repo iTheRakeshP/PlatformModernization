@@ -133,7 +133,7 @@ pyyaml>=6.0
 - Separate `requirements.txt` (production) and `requirements-dev.txt` (test)
 - **Never commit code with missing dependencies**
 
-> 📖 **Full Details**: See `.github/prompts/11-dependency-management.prompt.md`
+> 📖 **Full Details**: See `.github/prompts/10-dependency-management.prompt.md`
 
 ---
 
