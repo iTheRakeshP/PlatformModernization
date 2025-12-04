@@ -1,4 +1,4 @@
-# Phase 6: Pipeline Orchestrator
+# Phase 5: Pipeline Orchestrator
 
 > **Use Case**: Implement the hybrid producer-consumer pipeline with multiprocessing for CPU-bound work and threading for I/O-bound DB writes.
 
@@ -104,10 +104,10 @@ python/[job_name]/src/
 ---
 
 ## Prerequisites
-- All previous prompts complete (02 through 05)
+- All previous prompts complete (01 through 04)
 - Configuration files ready
 
 ---
 
 ## Next Steps
-Proceed to `07-reconciliation.prompt.md` for audit checks
+Proceed to `06-reconciliation.prompt.md` for audit checks

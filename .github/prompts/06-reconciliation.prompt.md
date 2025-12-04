@@ -1,4 +1,4 @@
-# Phase 7: Reconciliation
+# Phase 6: Reconciliation
 
 > **Use Case**: Implement multi-worker reconciliation to verify record counts across all pipeline stages.
 
@@ -16,7 +16,7 @@
 5. Save results to RECON_AUDIT table with per-worker breakdown
 6. Fail job if reconciliation fails
 
-Follow patterns from 04-reconciliation.md.
+Follow patterns from 04-reconciliation.instructions.md.
 Generate python/[job_name]/src/processor/reconciliation_service.py
 ```
 
@@ -98,10 +98,10 @@ CREATE TABLE RECON_AUDIT (
 ---
 
 ## Prerequisites
-- Pipeline orchestrator from `06-pipeline.prompt.md`
-- Repository layer from `04-repository.prompt.md`
+- Pipeline orchestrator from `05-pipeline.prompt.md`
+- Repository layer from `03-repository.prompt.md`
 
 ---
 
 ## Next Steps
-Proceed to `08-testing.prompt.md` for test generation
+Proceed to `07-testing.prompt.md` for test generation

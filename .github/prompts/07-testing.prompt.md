@@ -1,4 +1,4 @@
-# Phase 8: Testing
+# Phase 7: Testing
 
 > **Use Case**: Generate comprehensive unit and integration tests for the modernized batch job.
 
@@ -127,4 +127,5 @@ pytest tests/unit --cov=src --cov-report=html
 
 ## Next Steps
 - Run tests to validate implementation
-- Use `10-troubleshooting.prompt.md` if issues arise
+- Proceed to `08-specific-tasks.prompt.md` for additional tasks
+- Use `09-troubleshooting.prompt.md` if issues arise

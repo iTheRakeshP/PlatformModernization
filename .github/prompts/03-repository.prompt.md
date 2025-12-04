@@ -1,4 +1,4 @@
-# Phase 4: Repository Layer
+# Phase 3: Repository Layer
 
 > **Use Case**: Implement DB2 access with the DbWriter threading pattern, staging tables, and MERGE operations.
 
@@ -81,10 +81,10 @@ CREATE TABLE STG_BATCH (
 ---
 
 ## Prerequisites
-- Domain models from `02-domain-models.prompt.md`
-- IO layer from `03-io-layer.prompt.md`
+- Domain models from `01-domain-models.prompt.md`
+- IO layer from `02-io-layer.prompt.md`
 
 ---
 
 ## Next Steps
-Proceed to `05-configuration.prompt.md` for config files
+Proceed to `04-configuration.prompt.md` for config files

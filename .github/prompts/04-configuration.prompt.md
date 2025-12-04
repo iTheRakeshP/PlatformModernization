@@ -1,4 +1,4 @@
-# Phase 5: Configuration
+# Phase 4: Configuration
 
 > **Use Case**: Create configuration files with pipeline tuning parameters, environment-specific settings, and secrets management.
 
@@ -92,9 +92,9 @@ batch:
 ---
 
 ## Prerequisites
-- Repository layer from `04-repository.prompt.md`
+- Repository layer from `03-repository.prompt.md`
 
 ---
 
 ## Next Steps
-Proceed to `06-pipeline.prompt.md` for orchestrator
+Proceed to `05-pipeline.prompt.md` for orchestrator

@@ -1,4 +1,4 @@
-# Phase 3: IO Layer
+# Phase 2: IO Layer
 
 > **Use Case**: Implement EBCDIC file reading with chunked I/O for 100GB+ files, copybook parsing, and packed decimal conversion.
 
@@ -15,7 +15,7 @@
 4. File writers for any output files
 5. Handle all data types: PIC X, PIC 9, COMP-3, COMP
 
-Follow patterns from 01-ebcdic-copybook-handling.md.
+Follow patterns from 01-ebcdic-copybook-handling.instructions.md.
 Generate files in python/[job_name]/src/io_layer/
 ```
 
@@ -63,10 +63,10 @@ def unpack_comp3(packed_bytes: bytes, decimal_places: int = 0) -> Decimal:
 ---
 
 ## Prerequisites
-- Domain models from `02-domain-models.prompt.md`
+- Domain models from `01-domain-models.prompt.md`
 - Copybook field definitions from `docs/[JOB_NAME]/copybooks/`
 
 ---
 
 ## Next Steps
-Proceed to `04-repository.prompt.md` for database layer
+Proceed to `03-repository.prompt.md` for database layer

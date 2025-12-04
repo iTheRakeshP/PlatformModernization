@@ -1,4 +1,4 @@
-# Phase 2: Project Structure & Domain Models
+# Phase 1: Project Structure & Domain Models
 
 > **Use Case**: Create the Python project structure and generate domain models (@dataclass) from COBOL copybooks.
 
@@ -9,7 +9,7 @@
 ```
 @workspace Based on the analysis of [JOB_NAME], create:
 
-1. Python project structure in python/[job_name]/ per 00-core-architecture.md:
+1. Python project structure in python/[job_name]/ per 00-core-architecture.instructions.md:
    - config/        for YAML configuration files
    - src/entity/    for domain models
    - src/io_layer/  for EBCDIC reading
@@ -75,4 +75,4 @@ class CustomerValidator:
 ---
 
 ## Next Steps
-Proceed to `03-io-layer.prompt.md` for file I/O implementation
+Proceed to `02-io-layer.prompt.md` for file I/O implementation

@@ -93,12 +93,16 @@ Follows the patterns defined in `.github/instructions/`:
 - Repository pattern for DB2 (`02-repository-pattern.instructions.md`)
 - Configuration management (`03-configuration-management.instructions.md`)
 - Reconciliation checks (`04-reconciliation.instructions.md`)
-- Structured logging (`05-logging-monitoring.instructions.md`)  
+- Structured logging (`05-logging-monitoring.instructions.md`)
+- Testing patterns (`06-testing-patterns.instructions.md`)
+- Security & compliance (`07-security-compliance.instructions.md`)
+- Performance tuning (`08-performance-tuning.instructions.md`)
 
 ### 🧪 Validation & QA
 - Injects referential tables into validation logic  
 - Builds unit/functional test harnesses  
-- Ensures deterministic results vs COBOL baseline  
+- Ensures deterministic results vs COBOL baseline
+- Follows testing patterns from `06-testing-patterns.instructions.md`  
 
 ---
 
