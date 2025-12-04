@@ -24,7 +24,7 @@
 9. WorkerLogger with process_name for processors, thread_name for writers
 
 Memory budget: < 500MB total regardless of file size.
-Generate python/[job_name]/src/pipeline/ and src/batch/app.py
+Generate python/[job_name]/src/processor/ and src/batch/app.py
 ```
 
 ---
@@ -33,18 +33,20 @@ Generate python/[job_name]/src/pipeline/ and src/batch/app.py
 
 ```
 python/[job_name]/src/
-├── pipeline/
+├── processor/
 │   ├── __init__.py
 │   ├── orchestrator.py        # Main pipeline coordinator
 │   ├── single_reader.py       # Sequential file reader
 │   ├── processor.py           # multiprocessing.Process workers
 │   ├── queue_adapter.py       # mp.Queue → queue.Queue bridge
-│   └── db_writer.py           # threading.Thread DB writers
+│   ├── db_writer.py           # threading.Thread DB writers
+│   ├── validators.py          # Validation rules
+│   └── transformers.py        # Data transformations
 ├── batch/
 │   ├── __init__.py
 │   ├── app.py                 # Entry point
 │   └── shutdown_handler.py    # Graceful SIGTERM handling
-└── util/
+└── utility/
     └── worker_logger.py       # Per-worker logging
 ```
 

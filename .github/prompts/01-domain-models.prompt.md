@@ -9,13 +9,19 @@
 ```
 @workspace Based on the analysis of [JOB_NAME], create:
 
-1. Python project structure in python/[job_name]/ per 00-core-architecture.md
-   - Include pipeline/ folder for producer-consumer pattern
+1. Python project structure in python/[job_name]/ per 00-core-architecture.md:
+   - config/        for YAML configuration files
+   - src/entity/    for domain models
+   - src/io_layer/  for EBCDIC reading
+   - src/processor/ for producer-consumer, validation, transformation
+   - src/repository/ for DB2 access
+   - src/utility/   for logging, helpers
+   - src/batch/     for entry point
 2. Domain models (@dataclass) from all copybooks in source/jobs/[JOB_NAME]/copybooks/
 3. Handle all COMP-3 packed decimal fields properly
 4. Include validation rules based on field definitions
 
-Generate the src/core/models.py and src/core/validators.py files.
+Generate the src/entity/models.py and src/processor/validators.py files.
 ```
 
 ---
@@ -31,7 +37,7 @@ to a Python @dataclass. Handle all COMP-3 fields and include field validation.
 
 ## Expected Output
 
-### models.py
+### src/entity/models.py
 ```python
 from dataclasses import dataclass, field
 from datetime import date
@@ -48,7 +54,7 @@ class CustomerRecord:
     validation_errors: List[str] = field(default_factory=list)
 ```
 
-### validators.py
+### src/processor/validators.py
 ```python
 class CustomerValidator:
     def validate(self, record: CustomerRecord) -> List[str]:

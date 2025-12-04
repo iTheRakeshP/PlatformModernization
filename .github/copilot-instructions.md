@@ -51,11 +51,12 @@ PlatformModernization/
 └── python/[job_name]/            # Python output (by @Python-Batch-Expert)
     ├── config/                   # YAML configuration
     ├── src/
-    │   ├── core/                 # Domain models, validators
-    │   ├── io_layer/             # EBCDIC reading
-    │   ├── pipeline/             # Producer-consumer
-    │   ├── repository/           # DB2 access
-    │   └── batch/                # Entry point
+    │   ├── entity/               # Domain models (dataclasses from copybooks)
+    │   ├── io_layer/             # EBCDIC file readers, parsers
+    │   ├── processor/            # Producer-consumer, validation, transformation
+    │   ├── repository/           # DB2 access, staging operations
+    │   ├── utility/              # Logging, helpers, common functions
+    │   └── batch/                # Entry point, orchestration
     ├── tests/
     ├── requirements.txt          # Production dependencies
     └── requirements-dev.txt      # Test dependencies
@@ -79,7 +80,7 @@ PlatformModernization/
 
 | Topic | Instruction File |
 |-------|------------------|
-| Pipeline architecture, parallelism | `00-core-architecture.instructions.md` |
+| Processor architecture, parallelism | `00-core-architecture.instructions.md` |
 | EBCDIC, COMP-3, copybook parsing | `01-ebcdic-copybook-handling.instructions.md` |
 | DB2 repository, DbWriter, staging | `02-repository-pattern.instructions.md` |
 | YAML config, secrets, vault | `03-configuration-management.instructions.md` |

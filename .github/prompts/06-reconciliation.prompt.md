@@ -17,7 +17,7 @@
 6. Fail job if reconciliation fails
 
 Follow patterns from 04-reconciliation.md.
-Generate python/[job_name]/src/core/services/reconciliation_service.py
+Generate python/[job_name]/src/processor/reconciliation_service.py
 ```
 
 ---
@@ -25,7 +25,7 @@ Generate python/[job_name]/src/core/services/reconciliation_service.py
 ## Expected Files
 
 ```
-python/[job_name]/src/core/services/
+python/[job_name]/src/processor/
 ├── __init__.py
 └── reconciliation_service.py
 ```

@@ -38,7 +38,7 @@ python/[job_name]/
 │   ├── prod_config.yaml       # Production settings
 │   └── secrets/               # .gitignored
 │       └── .gitkeep
-└── src/util/
+└── src/utility/
     └── config_loader.py       # Load & merge configs
 ```
 

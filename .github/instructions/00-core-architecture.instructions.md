@@ -405,15 +405,13 @@ class PipelineOrchestrator:
 
 **Key Classes**: `EBCDICReader`, `CopybookParser`, `FileSplitter`, `unpack_comp3()`
 
-### 2. Core Layer (`src/core/`)
-**Purpose**: Business logic (no I/O, no database dependencies)
-- Domain models as `@dataclass`
-- Validation rules (types, ranges, business constraints)
-- Data transformations and enrichment
-- Pure functions for testability
+### 2. Entity Layer (`src/entity/`)
+**Purpose**: Domain models (no I/O, no database dependencies)
+- Domain models as `@dataclass` (generated from copybooks)
+- Pure data structures for business objects
 - **Stateless** - safe for parallel execution
 
-**Key Classes**: `InputRecord`, `Validator`, `TransformationService`
+**Key Classes**: `InputRecord`, `OutputRecord`, domain-specific dataclasses
 
 ### 3. Repository Layer (`src/repository/`)
 **Purpose**: Data access for DB Writer processes
@@ -424,15 +422,17 @@ class PipelineOrchestrator:
 
 **Key Classes**: `ConnectionFactory`, `Db2StagingRepository`, `Db2FinalRepository`, `RetryPolicy`
 
-### 4. Pipeline Layer (`src/pipeline/`)
-**Purpose**: Producer-consumer orchestration with hybrid parallelism
+### 4. Processor Layer (`src/processor/`)
+**Purpose**: Producer-consumer orchestration, validation, transformation
 - **SingleReaderPipeline**: One reader → processor pool (multiprocessing) → writer pool (threading)
 - **MultiReaderPipeline**: Multiple reader/processors (multiprocessing, one per chunk file) → writer pool (threading)
+- Validation rules (types, ranges, business constraints)
+- Data transformations and enrichment
 - Bounded queues for backpressure
 - Queue adapter for multiprocessing → threading bridge
 - Worker lifecycle management
 
-**Key Classes**: `SingleReader`, `ChunkFileReader`, `Processor`, `DbWriter`, `PipelineOrchestrator`
+**Key Classes**: `SingleReader`, `ChunkFileReader`, `Processor`, `DbWriter`, `PipelineOrchestrator`, `Validator`, `TransformationService`
 
 ### 5. Application Layer (`src/batch/`)
 **Purpose**: Entry point and workflow
@@ -445,7 +445,7 @@ class PipelineOrchestrator:
 
 **Key Classes**: `BatchApplication`, `ShutdownHandler`
 
-### 6. Utility Layer (`src/util/`)
+### 6. Utility Layer (`src/utility/`)
 **Purpose**: Cross-cutting concerns
 - Configuration management (YAML + vault)
 - **Per-worker structured logging** (JSON format with worker_id)
@@ -1323,11 +1323,9 @@ PlatformModernization/
         │   └── secrets/              # .gitignored - vault-managed
         │
         ├── src/
-        │   ├── core/                 # Business logic (NO I/O, NO DB)
+        │   ├── entity/               # Domain models (dataclasses from copybooks)
         │   │   ├── __init__.py
-        │   │   ├── models.py         # @dataclass from copybooks
-        │   │   ├── validators.py
-        │   │   └── services/
+        │   │   └── models.py         # @dataclass from copybooks
         │   │
         │   ├── io_layer/             # File I/O
         │   │   ├── __init__.py
@@ -1336,11 +1334,13 @@ PlatformModernization/
         │   │   ├── packed_decimal.py # COMP-3 conversion
         │   │   └── file_writer.py
         │   │
-        │   ├── pipeline/             # Hybrid Producer-Consumer
+        │   ├── processor/            # Producer-Consumer, Validation, Transformation
         │   │   ├── __init__.py
         │   │   ├── orchestrator.py   # Mode selection, lifecycle
         │   │   ├── single_reader.py  # SingleReader + Processors
-        │   │   └── db_writer.py      # DbWriter (threading.Thread)
+        │   │   ├── db_writer.py      # DbWriter (threading.Thread)
+        │   │   ├── validators.py     # Validation rules
+        │   │   └── transformers.py   # Data transformations
         │   │
         │   ├── repository/           # DB2 access
         │   │   ├── __init__.py
@@ -1354,7 +1354,7 @@ PlatformModernization/
         │   │   ├── app.py
         │   │   └── shutdown_handler.py
         │   │
-        │   └── util/                 # Cross-cutting
+        │   └── utility/              # Cross-cutting
         │       ├── __init__.py
         │       ├── config_loader.py
         │       ├── worker_logger.py
@@ -1379,18 +1379,18 @@ PlatformModernization/
 
 | Layer | Can Import | Cannot Import |
 |-------|------------|---------------|
-| `core/` | Standard library, `util/` | `io_layer/`, `pipeline/`, `repository/`, `batch/` |
-| `io_layer/` | Standard library, `util/` | `core/`, `pipeline/`, `repository/`, `batch/` |
-| `pipeline/` | `core/`, `io_layer/`, `repository/`, `util/` | `batch/` |
-| `repository/` | Standard library, `util/`, `core/models` | `io_layer/`, `pipeline/`, `batch/` |
+| `entity/` | Standard library, `utility/` | `io_layer/`, `processor/`, `repository/`, `batch/` |
+| `io_layer/` | Standard library, `utility/` | `entity/`, `processor/`, `repository/`, `batch/` |
+| `processor/` | `entity/`, `io_layer/`, `repository/`, `utility/` | `batch/` |
+| `repository/` | Standard library, `utility/`, `entity/models` | `io_layer/`, `processor/`, `batch/` |
 | `batch/` | All layers | - |
-| `util/` | Standard library only | All other layers |
+| `utility/` | Standard library only | All other layers |
 
 ### Why This Structure?
 
-1. **Testability**: Core logic has no external dependencies → easy unit testing
-2. **Pipeline Isolation**: Pipeline orchestration separate from business logic
-3. **Flexibility**: Swap file formats (EBCDIC ↔ CSV) without changing pipeline
+1. **Testability**: Entity layer has no external dependencies → easy unit testing
+2. **Processor Isolation**: Processor orchestration separate from domain models
+3. **Flexibility**: Swap file formats (EBCDIC ↔ CSV) without changing processor
 4. **Parallelism**: Workers are stateless → safe for multiprocessing
 5. **Backpressure**: Bounded queue prevents memory explosion
 

@@ -28,8 +28,8 @@ python/[job_name]/tests/
 ├── conftest.py                    # Shared pytest fixtures
 ├── unit/
 │   ├── __init__.py
-│   ├── test_models.py             # Domain model tests
-│   ├── test_validators.py         # Validation logic tests
+│   ├── test_models.py             # Domain model tests (entity/)
+│   ├── test_validators.py         # Validation logic tests (processor/)
 │   ├── test_ebcdic_reader.py      # IO layer tests
 │   ├── test_copybook_parser.py    # Parser tests
 │   ├── test_packed_decimal.py     # COMP-3 conversion tests
