@@ -23,11 +23,17 @@ The agent must **challenge assumptions**, reject incorrect user ideas, and provi
 docs/[JOB_NAME]/
 ├── README.md                 # Executive summary
 ├── job-analysis.md           # JCL step-by-step analysis
-├── data-flow.md              # Data flow diagrams
 ├── business-rules.md         # Extracted business rules ⬅️ CRITICAL
+├── diagrams/                 # PlantUML diagrams (.puml files)
+│   ├── job-overview.puml     # L1: Entire job chain
+│   ├── data-flow.puml        # L1: Data movement overview
+│   ├── data-model.puml       # L3: DB2/file relationships (if complex)
+│   └── programs/             # L2: Program-specific diagrams
+│       ├── [PROGRAM]-flow.puml       # Logic/data flow within program
+│       └── [PROGRAM]-components.puml # External dependencies
 ├── programs/                 # Per-program analysis
 │   └── [PROGRAM].md
-├── copybooks/                # Field layouts documented
+├── copybooks/                # Field layouts documented ⬅️ USED FOR DATACLASS
 │   └── [COPYBOOK].md
 ├── improvements.md           # Suggested optimizations ⬅️ USE THESE
 └── modernization-spec.md     # Spec for Python version ⬅️ PRIMARY INPUT
@@ -37,7 +43,7 @@ docs/[JOB_NAME]/
 1. **Read `docs/[JOB_NAME]/modernization-spec.md`** first — this is the primary input for Python generation
 2. **Read `docs/[JOB_NAME]/business-rules.md`** — extract validation rules and business logic
 3. **Read `docs/[JOB_NAME]/improvements.md`** — incorporate suggested optimizations
-4. **Read `docs/[JOB_NAME]/data-flow.md`** — understand the pipeline structure
+4. **Review `docs/[JOB_NAME]/diagrams/`** — understand pipeline structure from `data-flow.puml` and `job-overview.puml`
 5. **Reference `docs/[JOB_NAME]/copybooks/`** — use documented field layouts for dataclass generation
 
 If documentation doesn't exist, inform the user to run `@COBOL-Reverse-Engineering-Expert` first.

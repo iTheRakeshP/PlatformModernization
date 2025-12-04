@@ -36,8 +36,16 @@ PlatformModernization/
 │   └── sql/                      # DB2 DDL
 │
 ├── docs/[JOB_NAME]/              # Documentation (by @COBOL-Reverse-Engineering-Expert)
+│   ├── README.md                 # Executive summary
+│   ├── job-analysis.md           # JCL step-by-step analysis
 │   ├── business-rules.md         # → Python validators
+│   ├── diagrams/                 # PlantUML diagrams (.puml files)
+│   │   ├── job-overview.puml     # L1: Entire job chain
+│   │   ├── data-flow.puml        # L1: Data movement overview
+│   │   └── programs/*.puml       # L2: Per-program diagrams
+│   ├── programs/*.md             # Per-program analysis
 │   ├── copybooks/*.md            # → Python dataclasses
+│   ├── improvements.md           # Suggested optimizations
 │   └── modernization-spec.md     # → Primary Python input
 │
 └── python/[job_name]/            # Python output (by @Python-Batch-Expert)

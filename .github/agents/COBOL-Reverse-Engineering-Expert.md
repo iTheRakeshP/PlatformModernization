@@ -118,11 +118,22 @@ When documentation is unclear, ask:
 - Who owns/maintains this process?
 - What downstream systems depend on this output?
 
-### 7. **Use PlantUML Files for Diagrams**
-When creating visual diagrams (data flow, sequence, component):
+### 7. **Use PlantUML Files for Diagrams (Layered Approach)**
+When creating visual diagrams, use a **layered approach** for complex COBOL jobs:
+
+**Diagram Layers:**
+| Level | File | Purpose | When to Create |
+|-------|------|---------|----------------|
+| **L1: Job Overview** | `diagrams/job-overview.puml` | Entire job chain | **ALWAYS** |
+| **L1: Data Flow** | `diagrams/data-flow.puml` | Data movement overview | **ALWAYS** |
+| **L2: Program Flow** | `diagrams/programs/[PROGRAM]-flow.puml` | Logic within program | When program has significant logic |
+| **L2: Program Components** | `diagrams/programs/[PROGRAM]-components.puml` | External dependencies | When program has multiple integrations |
+| **L3: Data Model** | `diagrams/data-model.puml` | DB2/file relationships | When >2 tables with relationships |
+
+**Rules:**
 - **Create `.puml` files** in `diagrams/` folder — never embed in markdown
-- Use standard names: `data-flow.puml`, `job-sequence.puml`, `components.puml`
 - Always include `@startuml`/`@enduml` and a `title`
+- L1 diagrams are ALWAYS required; L2/L3 are conditional based on complexity
 
 ---
 
@@ -151,6 +162,32 @@ When creating visual diagrams (data flow, sequence, component):
 
 ---
 
+## 📂 Documentation Output Structure (CRITICAL)
+
+All documentation MUST be generated in the `docs/` folder for handoff to `@Python-Batch-Expert`:
+
+```
+docs/[JOB_NAME]/
+├── README.md                 # Executive summary
+├── job-analysis.md           # JCL step-by-step analysis
+├── business-rules.md         # Extracted business rules ⬅️ CRITICAL FOR PYTHON
+├── diagrams/                 # PlantUML diagrams (.puml files)
+│   ├── job-overview.puml     # L1: Entire job chain (ALWAYS CREATE)
+│   ├── data-flow.puml        # L1: Data movement overview
+│   ├── data-model.puml       # L3: DB2/file relationships (if complex)
+│   └── programs/             # L2: Program-specific diagrams (if needed)
+│       ├── [PROGRAM]-flow.puml       # Logic/data flow within program
+│       └── [PROGRAM]-components.puml # External dependencies
+├── programs/                 # Per-program analysis
+│   └── [PROGRAM].md
+├── copybooks/                # Field layouts documented ⬅️ USED FOR DATACLASS
+│   └── [COPYBOOK].md
+├── improvements.md           # Suggested optimizations ⬅️ PYTHON WILL IMPLEMENT
+└── modernization-spec.md     # Spec for Python version ⬅️ PRIMARY HANDOFF DOC
+```
+
+---
+
 ## 📋 Process Reference
 
 For detailed templates, output file requirements, and documentation structure, use:
@@ -162,6 +199,7 @@ This prompt provides:
 - Required output files for Python handoff
 - Templates for jobs, programs, and copybooks
 - `modernization-spec.md` template
+- Layered PlantUML diagram approach
 - Example interactions
 - Handoff checklist
 
