@@ -75,6 +75,8 @@ PlatformModernization/
 
 ## Instruction Files Reference
 
+> **Used by**: `@Python-Batch-Expert` agent
+
 | Topic | Instruction File |
 |-------|------------------|
 | Pipeline architecture, parallelism | `00-core-architecture.instructions.md` |

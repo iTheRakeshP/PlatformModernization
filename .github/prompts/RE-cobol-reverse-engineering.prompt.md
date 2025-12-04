@@ -6,6 +6,32 @@
 
 ---
 
+## 📂 Source Input Location (CRITICAL)
+
+All COBOL/JCL source files are located in the `source/` folder:
+
+```
+source/jobs/[JOB_NAME]/
+├── jcl/                      # JCL files (.jcl)
+│   └── [JOBNAME].jcl         # Main job JCL
+├── programs/                 # COBOL programs (.cbl, .cob)
+│   └── [PROGRAM].cbl         # COBOL source code
+├── copybooks/                # COBOL copybooks (.cpy)
+│   └── [COPYBOOK].cpy        # Data structure definitions
+└── sql/                      # DB2 DDL and stored procedures (.sql)
+    ├── tables/               # Table definitions
+    ├── procedures/           # Stored procedures
+    └── views/                # View definitions
+```
+
+**When analyzing a job:**
+1. Start with JCL in `source/jobs/[JOB_NAME]/jcl/` to understand job flow
+2. Read programs from `source/jobs/[JOB_NAME]/programs/`
+3. Reference copybooks from `source/jobs/[JOB_NAME]/copybooks/`
+4. Check SQL artifacts in `source/jobs/[JOB_NAME]/sql/`
+
+---
+
 ## 📂 Documentation Output Location (CRITICAL)
 
 All documentation MUST be generated in the `docs/` folder for handoff to `@Python-Batch-Expert`:
